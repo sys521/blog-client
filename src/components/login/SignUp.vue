@@ -2,7 +2,14 @@
   <div class="signUp">
     <el-form label-position="left" :model="userInfo" :rules="rules" ref="signUpForm">
       <el-form-item label="账户名称" prop="u_name" label-width="80px">
-        <el-input v-model="userInfo.u_name" placeholder="请设置账户名称"></el-input>
+        <el-popover
+          placement="top-start"
+          title="账户名称"
+          width="200"
+          trigger="focus"
+          content="账户名称是由(数字，字母，下划线，减号)组成的4-16位字符串">
+          <el-input v-model="userInfo.u_name" placeholder="请设置账户名称" slot="reference"></el-input>
+        </el-popover>
       </el-form-item>
       <el-form-item label="密码" prop="u_password" label-width="80px">
         <el-input type="password" v-model="userInfo.u_password" placeholder="请设置登录密码"></el-input>

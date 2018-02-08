@@ -8,8 +8,8 @@
 </template>
 
 <script>
-import SignIn from './SignIn'
-import SignUp from './SignUp'
+import SignIn from './login/SignIn'
+import SignUp from './login/SignUp'
 export default {
   data () {
     return {
@@ -40,8 +40,8 @@ export default {
     align-items: center;
     .login-card {
       width:300px;
-      margin-top:-300px;
-      padding:40px;
+      margin-top:-100px;
+      padding:20px;
     }
   }
 </style>

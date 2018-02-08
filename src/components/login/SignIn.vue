@@ -9,7 +9,7 @@
       </el-form-item>
       <el-form-item class="button-layout">
         <el-button type="primary" @click="submit('signInForm')">登录</el-button>
-        <el-button type="text" @click="$emit('changeShow', 'signUp')">注册</el-button>
+        <el-button type="text" @click="$emit('changeShow', 'signUp')" style="float:right">注册</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -43,15 +43,32 @@ export default {
           this.signIn(user).then(res => {
             if (res.data.status === 'success') {
               console.log('登陆成功')
+              this.$message({
+                message: '欢迎回来',
+                center: 'true',
+                type: 'success'
+              })
+              this.$router.push('/home')
             } else {
               console.log('登陆失败')
+              this.$message({
+                message: '登陆失败,账号密码错误',
+                center: 'true',
+                type: 'error'
+              })
             }
+          }).catch(err => {
+            console.log(err)
+            this.$message({
+              message: '连接失败,可能是网络原因',
+              center: 'true'
+            })
           })
         }
       })
     },
     signIn (user) {
-      let api = this.$host + '/login'
+      let api = this.$host + '/user/login'
       return this.$axios.post(api, user)
     }
   }
