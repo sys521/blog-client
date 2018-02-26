@@ -8,11 +8,11 @@
        </el-col>
        <el-col :span="12">
          <div class="user">
-           <li class="user-img"></li>
+           <li class="user-img" :style="{backgroundImage: `url(${imgUrl})`}"></li>
            <div class="user-name">
              <el-dropdown trigger="click" @command="handleCommand">
               <span class="el-dropdown-link">
-                <span class="name">测试用户</span><i class="el-icon-caret-bottom"></i>
+                <span class="name">{{$store.getters.getUserBasic.user_displayName ? $store.getters.getgetUserBasic.user_displayName : '测试用户'}}</span><i class="el-icon-caret-bottom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="dorp-item" command="setting"><i class="el-icon-setting" style="padding:5px"></i>设置 </el-dropdown-item>
@@ -27,7 +27,25 @@
 </template>
 
 <script>
+import defaultImage from '../../assets/default.jpg'
 export default {
+  data () {
+    return {
+      defaultImage
+    }
+  },
+  computed: {
+    imgUrl () {
+      let url = this.$store.getters.getUserBasic.user_header
+      console.log(url)
+      console.log('xxxxxxxxxxxxxxxx')
+      if (url) {
+        return this.$host + '/' + url
+      } else {
+        return this.defaultImage
+      }
+    }
+  },
   methods: {
     goSetting () {
       console.log('xxx')
@@ -66,7 +84,8 @@ export default {
       .user-img {
         width:40px;
         height:40px;
-        background:url('../../assets/default.jpg') center center no-repeat;
+        background-repeat:no-repeat;
+        background-position:center center;
         background-size:cover;
         border-radius:50%;
         cursor:pointer;

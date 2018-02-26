@@ -14,14 +14,17 @@ export default {
   data () {
     return {
       menu: [
-        { icon: 'el-icon-document', text: '用户资料' },
-        { icon: 'el-icon-edit', text: '文章编辑' }
+        { icon: 'el-icon-document', text: '基本设置' },
+        { icon: 'el-icon-edit', text: '安全设置' }
       ]
     }
   },
   methods: {
     changeItem (index) {
-      console.log(index)
+      this.$emit('selectMenu', index)
+    },
+    getUserBasic () {
+    
     }
   }
 }

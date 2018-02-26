@@ -15,9 +15,12 @@ export default {
   },
   mounted () {
     let api = this.$host + '/user/info'
-    console.log(this.$host)
-    this.$axios.get(api).then(res => {
-      console.log(res)
+    this.$store.dispatch('getUserBasic', api).then(res => {
+      if (res === 'success') {
+        console.log('成功')
+      } else {
+        console.log('获取数据失败')
+      }
     })
   }
 }
