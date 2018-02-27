@@ -7,6 +7,9 @@
       <el-form-item label="用户头像">
         <Upload></Upload>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="handle('userBasic')">提交</el-button>
+      </el-form-item>
     </el-form>
   </div>
 </template>
@@ -25,6 +28,37 @@ export default {
   computed: {
     userInfo () {
       return Object.assign({}, this.$store.getters.getUserBasic)
+    }
+  },
+  methods: {
+    handle () {
+      let displayName = this.userInfo.user_displayName
+      if (!displayName) {
+        this.message({
+          type: 'error',
+          message: '请输入要修改的用户名',
+          center: 'true'
+        })
+      } else {
+        let api = this.$host + '/user/displayname/update'
+        this.$axios.post(api, {user_displayName: displayName}).then(res => {
+          if (res.data.status === 'success') {
+            this.$message({
+              type: 'success',
+              message: '修改成功',
+              center: 'true'
+            })
+            let api = this.$host + '/user/update'
+            this.$store.commit('setUserName', displayName)
+          } else {
+            this.$message({
+              type: 'error',
+              message: `${res.data.data}`,
+              center: 'true'
+            })
+          }
+        })
+      }
     }
   },
   created () {

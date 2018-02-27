@@ -15,6 +15,9 @@ const userBasic = {
     },
     setUserHeader (state, playload) {
       state.basicInfo.user_header = playload
+    },
+    setUserName (state, playload) {
+      state.basicInfo.user_displayName = playload
     }
   },
   getters: {

@@ -20,9 +20,8 @@ export default {
     imgUrl () {
       let url = this.$store.getters.getUserBasic.user_header
       console.log(url)
-      console.log('xxxxxxxxxxxxxxxx')
       if (url) {
-        return this.$host + '/' + url
+        return this.$host + '/header-imgs/' + url
       } else {
         return this.defaultImage
       }
@@ -32,8 +31,17 @@ export default {
     pushFile(event) {
       console.log(event)
       let file = event.target.files[0]
-      this.imgUrl = window.URL.createObjectURL(file)
-      this.upload(file)
+      let maxFile = 1024 * 1024
+      if (file.size / maxFile > 1) {
+        this.$message({
+          type: 'error',
+          message: '图片大小不得超过1M',
+          center: 'true'
+        })
+      } else {
+        this.imgUrl = window.URL.createObjectURL(file)
+        this.upload(file)
+      }
     },
     upload (file) {
       let formData = new FormData()

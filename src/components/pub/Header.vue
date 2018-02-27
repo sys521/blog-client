@@ -12,10 +12,11 @@
            <div class="user-name">
              <el-dropdown trigger="click" @command="handleCommand">
               <span class="el-dropdown-link">
-                <span class="name">{{$store.getters.getUserBasic.user_displayName ? $store.getters.getgetUserBasic.user_displayName : '测试用户'}}</span><i class="el-icon-caret-bottom"></i>
+                <span class="name">{{displayName}}</span><i class="el-icon-caret-bottom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="dorp-item" command="setting"><i class="el-icon-setting" style="padding:5px"></i>设置 </el-dropdown-item>
+                <el-dropdown-item class="dorp-item" command="writting"><i class="el-icon-setting" style="padding:5px"></i>写文章 </el-dropdown-item>
                 <el-dropdown-item class="dorp-item"><i class="el-icon-info" style="padding:5px"></i>注销 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -37,22 +38,29 @@ export default {
   computed: {
     imgUrl () {
       let url = this.$store.getters.getUserBasic.user_header
-      console.log(url)
-      console.log('xxxxxxxxxxxxxxxx')
       if (url) {
-        return this.$host + '/' + url
+        return this.$host + '/header-imgs/' + url
       } else {
         return this.defaultImage
+      }
+    },
+    displayName () {
+      let displayName = this.$store.getters.getUserBasic.user_displayName
+      if (displayName) {
+        return displayName
+      } else {
+        return '测试用户'
       }
     }
   },
   methods: {
-    goSetting () {
-      console.log('xxx')
-      this.$router.push('/home/setting')
-    },
     handleCommand (command) {
-      console.log(command)
+      if (command === 'writting') {
+        let api = this.$host + '/artical/add'
+        this.$store.dispatch('getNewArticalName', api).then(res => {
+          console.log(res)
+        })
+      }
       this.$router.push(`/home/${command}`)
     }
   }

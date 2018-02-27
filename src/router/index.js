@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Setting from '@/components/home/Setting'
+import Writting from '@/components/home/Writting'
 Vue.use(Router)
 
 export default new Router({
@@ -21,6 +22,10 @@ export default new Router({
           path: 'setting',
           name: 'setting',
           component: Setting
+        }, {
+          path: 'writting',
+          name: 'writting',
+          component: Writting
         }
       ]
     }
