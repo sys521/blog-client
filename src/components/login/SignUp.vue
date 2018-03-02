@@ -106,9 +106,16 @@ export default {
           let user = Object.assign({}, this.userInfo, {u_password})
           this.signUp(user).then(res => {
             if (res.data.status === 'success') {
-              console.log('注册成功')
+              this.$message({
+                type: 'success',
+                message: '注册成功',
+              })
+              this.$router.push('/login')
             } else {
-              console.log('注册失败')
+              this.$message({
+                type: 'error',
+                message: '注册失败'
+              })
             }
           })
         } else {

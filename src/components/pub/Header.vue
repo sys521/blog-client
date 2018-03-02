@@ -8,6 +8,7 @@
        </el-col>
        <el-col :span="12">
          <div class="user">
+           <li class="writting" @click="goWritting">写文章</li>
            <li class="user-img" :style="{backgroundImage: `url(${imgUrl})`}"></li>
            <div class="user-name">
              <el-dropdown trigger="click" @command="handleCommand">
@@ -15,8 +16,8 @@
                 <span class="name">{{displayName}}</span><i class="el-icon-caret-bottom"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item class="dorp-item" command="myartical"><i class="el-icon-setting" style="padding:5px"></i>我的文章 </el-dropdown-item>
                 <el-dropdown-item class="dorp-item" command="setting"><i class="el-icon-setting" style="padding:5px"></i>设置 </el-dropdown-item>
-                <el-dropdown-item class="dorp-item" command="writting"><i class="el-icon-setting" style="padding:5px"></i>写文章 </el-dropdown-item>
                 <el-dropdown-item class="dorp-item"><i class="el-icon-info" style="padding:5px"></i>注销 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
@@ -58,10 +59,35 @@ export default {
       if (command === 'writting') {
         let api = this.$host + '/artical/add'
         this.$store.dispatch('getNewArticalName', api).then(res => {
-          console.log(res)
+          if(res === 'success') {
+            this.$router.push(`/home/writting`)
+          } else {
+            this.$message({
+              type: 'error',
+              message: '新建文章失败',
+              center: 'true'
+            })
+          }
+        })
+      } else {
+        this.$router.push(`/home/${command}`)
+      }
+    },
+    goWritting () {
+      if (this.$router.currentRoute.path !== '/home/writting') {
+        let api = this.$host + '/artical/add'
+        this.$store.dispatch('getNewArticalId', api).then(res => {
+          if(res === 'success') {
+            this.$router.push(`/home/writting`)
+          } else {
+            this.$message({
+              type: 'error',
+              message: '新建文章失败',
+              center: 'true'
+            })
+          }
         })
       }
-      this.$router.push(`/home/${command}`)
     }
   }
 }
@@ -89,6 +115,17 @@ export default {
       display:flex;
       align-items: center;
       float:right;
+      .writting {
+        width:100px;
+        height:40px;
+        line-height:40px;
+        color:white;
+        background:#ea6f5a;
+        text-align: center;
+        cursor:pointer;
+        border-radius:10px;
+        margin-right:20px;
+      }
       .user-img {
         width:40px;
         height:40px;

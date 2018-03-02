@@ -3,22 +3,27 @@ axios.defaults.withCredentials = true
 
 const newArtical = {
   state: {
-    newArticalName: ''
+    newArticalId: ''
   },
   getters: {
-    getArticalName (state) {
-      return state.newArticalName
+    getArticalId (state) {
+      return state.newArticalId
     }
   },
   mutations: {
-    setNewArticalName (state, playload) {
-      state.newArticalName = playload
+    setNewArticalId (state, playload) {
+      state.newArticalId = playload
     }
   },
   actions: {
-    getNewArticalName (context, api) {
+    getNewArticalId (context, api) {
       return axios.get(api).then(res => {
-        return res
+        if (res.data.status === 'success') {
+          context.commit('setNewArticalId', res.data.data)
+          return 'success'
+        } else {
+          return 'fail'
+        }
       })
     }
   }

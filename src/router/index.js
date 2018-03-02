@@ -4,6 +4,8 @@ import Login from '@/components/Login'
 import Home from '@/components/Home'
 import Setting from '@/components/home/Setting'
 import Writting from '@/components/home/Writting'
+import MyArtical from '@/components/home/MyArtical'
+import Editor from '@/components/home/Editor'
 Vue.use(Router)
 
 export default new Router({
@@ -26,6 +28,12 @@ export default new Router({
           path: 'writting',
           name: 'writting',
           component: Writting
+        }, {
+          path: 'myartical',
+          component: MyArtical
+        }, {
+          path: 'editor/:id',
+          component: Editor
         }
       ]
     }

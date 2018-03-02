@@ -22,19 +22,25 @@ export default {
   },
   data () {
     return {
-      api: null
+      api: null,
     }
   },
   computed: {
-    userInfo () {
-      return Object.assign({}, this.$store.getters.getUserBasic)
+    userInfo: {
+      get () {
+        return Object.assign({}, this.$store.getters.getUserBasic)
+      },
+      set (value) {
+        console.log(value)
+        this.$store.commit('setUserName', value)
+      }
     }
   },
   methods: {
     handle () {
       let displayName = this.userInfo.user_displayName
       if (!displayName) {
-        this.message({
+        this.$message({
           type: 'error',
           message: '请输入要修改的用户名',
           center: 'true'
