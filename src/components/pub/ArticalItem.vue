@@ -11,17 +11,36 @@
         <el-button type="text" @click="tabRouter()">编辑</el-button>
         <el-button type="text" v-if="!status">发布</el-button>
         <el-button type="text" v-if="status">转为私密</el-button>
+        <el-button type="text" @click="dialogVisible = true">删除</el-button>
       </ul>
     </div>
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <span>确定删除这篇文章么</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = removeArtical()">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 export default {
   props: ['name', 'abstract', 'click', 'love', 'status', 'id'],
+  data () {
+    return {
+      dialogVisible: false
+    }
+  },
   methods: {
     tabRouter () {
       this.$router.push(`/home/editor/${this.id}`)
+    },
+    removeArtical() {
+      this.$emit('removeArtical', this.id)
     }
   }
 }

@@ -7,7 +7,8 @@
       :click="item.artical_clicktimes"
       :love="item.love || 0"
       :id ="item.artical_id"
-      :status="item.artical_status"/>
+      :status="item.artical_status"
+      @removeArtical ="removeArtical"/>
     </ul>
   </div>
 </template>
@@ -33,6 +34,23 @@ export default {
           this.$message({
             type: 'error',
             message: '获取文章列表失败'
+          })
+        }
+      })
+    },
+    removeArtical (id) {
+      let api = this.$host + '/artical/remove'
+      this.$axios.post(api, {artical_id: id}).then(res => {
+        if (res.data.status === 'success') {
+          this.articalList.forEach((e,i) => {
+            if (e.artical_id === id) {
+              this.articalList.splice(i, 1)
+            }
+          }) 
+        } else {
+          this.$message({
+            type: 'error',
+            message: '删除文章失败'
           })
         }
       })
