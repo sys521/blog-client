@@ -6,6 +6,7 @@ import Setting from '@/components/home/Setting'
 import Writting from '@/components/home/Writting'
 import MyArtical from '@/components/home/MyArtical'
 import Editor from '@/components/home/Editor'
+import Hot from '@/components/home/hot'
 Vue.use(Router)
 
 export default new Router({
@@ -34,6 +35,9 @@ export default new Router({
         }, {
           path: 'editor/:id',
           component: Editor
+        }, {
+          path: 'hot',
+          component: Hot
         }
       ]
     }

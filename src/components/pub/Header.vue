@@ -2,7 +2,7 @@
   <div id ="header">
     <el-row class="header" type="flex" align="middle">
        <el-col :span="12">
-         <div class="logo">
+         <div class="logo" @click ="goRecomend">
            <span class="logo-main">toyouth</span>
          </div>
        </el-col>
@@ -88,6 +88,9 @@ export default {
           }
         })
       }
+    },
+    goRecomend() {
+      this.$router.push('/home/hot')
     }
   }
 }

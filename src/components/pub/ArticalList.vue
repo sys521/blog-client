@@ -45,6 +45,8 @@ export default {
           this.articalList.forEach((e,i) => {
             if (e.artical_id === id) {
               this.articalList.splice(i, 1)
+              let api = this.$host + '/author/info'
+              this.$store.dispatch('getAuthorInfo',api)
             }
           }) 
         } else {

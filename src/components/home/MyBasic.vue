@@ -7,9 +7,9 @@
       <div class="basic">
         <h2 class="displayname">{{displayName}}</h2>
         <div class="author-info">
-          <li>关注:<span>{{concernNum}}</span></li>
-          <li>喜欢:<span>{{loveNum}}</span></li>
-          <li>文章数量:<span>{{articalNum}}</span></li>
+          <li>关注:<span>{{$store.getters.getAuthorInfo.concernNum}}</span></li>
+          <li>喜欢:<span>{{$store.getters.getAuthorInfo.loveNum}}</span></li>
+          <li>文章数量:<span>{{$store.getters.getAuthorInfo.articalNum}}</span></li>
         </div>
       </div>
     </div>
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import defaultImage from '../../assets/default.jpg'
 export default {
   data () {
     return {
@@ -46,18 +47,7 @@ export default {
   methods: {
     getAuthorInfo () {
       let api = this.$host + '/author/info'
-      this.$axios.get(api).then(res => {
-        if (res.data.status === 'success') {
-          this.loveNum = res.data.data.loveNum
-          this.articalNum = res.data.data.articalNum
-          this.concernNum = res.data.data.concernNum
-        } else {
-          this.$message({
-            type: 'error',
-            message: '获取作者信息失败'
-          })
-        }
-      })
+      this.$store.dispatch('getAuthorInfo', api)
     }
   },
   mounted () {
