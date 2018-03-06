@@ -7,7 +7,7 @@
       <div class="basic">
         <h2 class="displayname">{{displayName}}</h2>
         <div class="author-info">
-          <li>关注:<span>{{$store.getters.getAuthorInfo.concernNum}}</span></li>
+          <li @click="goAlready">关注:<span>{{$store.getters.getAuthorInfo.concernNum}}</span></li>
           <li>喜欢:<span>{{$store.getters.getAuthorInfo.loveNum}}</span></li>
           <li>文章数量:<span>{{$store.getters.getAuthorInfo.articalNum}}</span></li>
         </div>
@@ -48,6 +48,9 @@ export default {
     getAuthorInfo () {
       let api = this.$host + '/author/info'
       this.$store.dispatch('getAuthorInfo', api)
+    },
+    goAlready () {
+      this.$router.push('/home/concern')
     }
   },
   mounted () {

@@ -2,7 +2,7 @@
 <template>
   <div id ="concern">
     <AlreadyConcern />
-    <RecommendConcern />
+    <RecomendConcern />
   </div>
 </template>
 
@@ -23,16 +23,11 @@ export default {
   methods: {
     getAlreadyConcern () {
       let api = this.$host + '/concern/already'
-      this.$axios.get(api).then(res => {
-        console.log(res)
-      })
-    },
-    getRecomendConcern() {
-      let api = this.$host + '/concern/recomend'
-      this.$axios.get(api).then(res => {
-        console.log(res)
-      })
+      this.$store.dispatch('getAlreadyList', api)
     }
+  },
+  created () {
+    this.getAlreadyConcern()
   }
 }
 </script>
