@@ -23,7 +23,7 @@ export default {
   methods: {
     getAlreadyConcern () {
       let api = this.$host + '/concern/already'
-      this.$axios.get(api).then(res => {
+      this.$store.dispatch('getAlreadyList', api).then(res => {
         console.log(res)
       })
     },
@@ -33,6 +33,17 @@ export default {
         console.log(res)
       })
     }
+    // test () {
+    //   let api = this.$host + '/concern/add'
+    //   let to_id = 2
+    //   this.$axios.post(api,{to_id}).then(res => {
+    //     console.log(res)
+    //   })
+    // }
+  },
+  created () {
+    this.getAlreadyConcern()
+    this.getRecomendConcern()
   }
 }
 </script>

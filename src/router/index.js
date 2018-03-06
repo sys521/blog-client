@@ -7,6 +7,7 @@ import Writting from '@/components/home/Writting'
 import MyArtical from '@/components/home/MyArtical'
 import Editor from '@/components/home/Editor'
 import Hot from '@/components/home/hot'
+import Concern from '@/components/home/Concern'
 Vue.use(Router)
 
 export default new Router({
@@ -38,6 +39,9 @@ export default new Router({
         }, {
           path: 'hot',
           component: Hot
+        }, {
+          path: 'concern',
+          component: Concern
         }
       ]
     }
