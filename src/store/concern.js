@@ -4,7 +4,7 @@ axios.defaults.withCredentials = true
 let concern = {
   state: {
     alreadyList: [],
-    recomendList: [],
+    recomendList: []
   },
   mutations: {
     setAlreadyList (state, playload) {
@@ -25,12 +25,22 @@ let concern = {
   actions: {
     getAlreadyList (context, api) {
       return axios.get(api).then(res => {
-        console.log(res)
+        if (res.data.status === 'success') {
+          context.commit('setAlreadyList', res.data.data)
+          return 'success'
+        } else {
+          return 'fail'
+        }
       })
     },
     getRecomendList (context, api) {
       return axios.get(api).then(res => {
-        console.log(res)
+        if (res.data.status === 'success') {
+          context.commit('setRecomendList')
+          return 'success'
+        } else {
+          return 'fail'
+        }
       })
     }
   }
