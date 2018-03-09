@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     getArticalList () {
-      let api = this.$host + '/artical/list'
+      let api = this.$host + '/artical/list/' + this.$router.currentRoute.params.id
       this.$axios.get(api).then(res => {
         if (res.data.status === 'success') {
           this.articalList = res.data.data

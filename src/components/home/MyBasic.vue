@@ -7,7 +7,7 @@
       <div class="basic">
         <h2 class="displayname">{{displayName}}</h2>
         <div class="author-info">
-          <li @click="goAlready">关注:<span>{{$store.getters.getAuthorInfo.concernNum}}</span></li>
+          <li @click="goConcern">关注:<span>{{$store.getters.getAuthorInfo.concernNum}}</span></li>
           <li>喜欢:<span>{{$store.getters.getAuthorInfo.loveNum}}</span></li>
           <li>文章数量:<span>{{$store.getters.getAuthorInfo.articalNum}}</span></li>
         </div>
@@ -29,10 +29,11 @@ export default {
   computed: {
     imgUrl () {
       let url = this.$store.getters.getUserBasic.user_header
+      console.log(url)
       if (url) {
         return this.$host + '/header-imgs/' + url
       } else {
-        return this.defaultImage
+        return defaultImage
       }
     },
     displayName () {
@@ -46,12 +47,15 @@ export default {
   },
   methods: {
     getAuthorInfo () {
-      let api = this.$host + '/author/info'
+      let api = this.$host + '/author/info/' + this.$router.currentRoute.params.id
       this.$store.dispatch('getAuthorInfo', api)
     },
-    goAlready () {
+    goConcern () {
       this.$router.push('/home/concern')
     }
+  },
+  created () {
+    this.id = this.$router.currentRoute.params.id
   },
   mounted () {
     this.getAuthorInfo()

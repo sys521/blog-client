@@ -69,6 +69,8 @@ export default {
             })
           }
         })
+      } else if (command === 'myartical') {
+        this.$router.push(`/home/myartical/${this.$store.getters.getUserBasic.user_id}`)
       } else {
         this.$router.push(`/home/${command}`)
       }

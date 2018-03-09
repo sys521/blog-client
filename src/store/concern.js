@@ -1,39 +1,53 @@
 import axios from 'axios'
 axios.defaults.withCredentials = true
 
-let concernList = {
+let concern = {
   state: {
     alreadyList: [],
     recomendList: []
   },
   mutations: {
     setAlreadyList (state, playload) {
-      state.alreadyList = [...playload]
+      state.alreadyList = playload
     },
     setRecomendList (state, playload) {
-      state.recomendList = [...playload]
+      console.log(playload)
+      state.recomendList = playload
     }
   },
   getters: {
     getAlreadyList (state) {
       return state.alreadyList
     },
-    getRecommendList (state) {
+    getRecomendList (state) {
       return state.recomendList
     }
   },
   actions: {
     getAlreadyList (context, api) {
-      axios.get(api).then(res => {
+      return axios.get(api).then(res => {
         console.log(res)
+        if (res.data.status === 'success') {
+          context.commit('setAlreadyList', res.data.data)
+          return 'success'
+        } else {
+          return 'fail'
+        }
       })
     },
-    getrecommendList (context, api) {
-      axios.get(api).then(res => {
+    getRecomendList (context, api) {
+      return axios.get(api).then(res => {
         console.log(res)
+        if (res.data.status === 'success') {
+          console.log('xxxxxxxxxxxxxxx')
+          context.commit('setRecomendList', res.data.data)
+          return 'success'
+        } else {
+          return 'fail'
+        }
       })
     }
   }
 }
 
-export default concernList
+export default concern
