@@ -18,7 +18,7 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item class="dorp-item" command="myartical"><i class="el-icon-setting" style="padding:5px"></i>我的文章 </el-dropdown-item>
                 <el-dropdown-item class="dorp-item" command="setting"><i class="el-icon-setting" style="padding:5px"></i>设置 </el-dropdown-item>
-                <el-dropdown-item class="dorp-item"><i class="el-icon-info" style="padding:5px"></i>注销 </el-dropdown-item>
+                <el-dropdown-item class="dorp-item" command="signOut"><i class="el-icon-info" style="padding:5px"></i>注销 </el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
            </div>
@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     imgUrl () {
-      let url = this.$store.getters.getUserBasic.user_header
+      let url = this.$store.getters.getMyDetail.user_header
       if (url) {
         return this.$host + '/header-imgs/' + url
       } else {
@@ -46,7 +46,7 @@ export default {
       }
     },
     displayName () {
-      let displayName = this.$store.getters.getUserBasic.user_displayName
+      let displayName = this.$store.getters.getMyDetail.user_displayName
       if (displayName) {
         return displayName
       } else {
@@ -70,10 +70,31 @@ export default {
           }
         })
       } else if (command === 'myartical') {
-        this.$router.push(`/home/myartical/${this.$store.getters.getUserBasic.user_id}`)
-      } else {
-        this.$router.push(`/home/${command}`)
+        this.$router.push(`/home/myartical/${this.$store.getters.getMyDetail.user_id}`)
+      } else if (command === 'signOut') {
+        this.signOut()
       }
+    },
+    setCookie(cname, cvalue, exdays) {
+      var d = new Date()
+      d.setTime(d.getTime() + (exdays*24*60*60*1000))
+      var expires = "expires="+d.toUTCString()
+      document.cookie = cname + "=" + cvalue + "; " + expires;
+    },
+    clearCookie(name) {  
+      this.setCookie(name, "", -1)
+    },
+    clearStore() {
+      let store = ['AuthorInfo', 'Concern', 'MyDetail', 'NewArtical']
+      store.forEach( e => {
+        this.$store.commit(`clear${e}`)
+      })
+    },
+    signOut () {
+      console.log(document.cookie)
+      this.clearCookie('user_id')
+      this.clearStore()
+      this.$router.push('/login')
     },
     goWritting () {
       if (this.$router.currentRoute.path !== '/home/writting') {

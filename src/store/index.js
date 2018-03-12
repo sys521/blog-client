@@ -1,15 +1,17 @@
 import Vuex from 'vuex'
 import Vue from 'vue'
-import userBasic from './userBasic'
+import authorInfo from './authorInfo'
 import newArtical from './newArtical'
 import concern from './concern'
+import myDetail from './myDetail'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    userBasic,
+    authorInfo,
     newArtical,
-    concern
+    concern,
+    myDetail
   }
 })
 

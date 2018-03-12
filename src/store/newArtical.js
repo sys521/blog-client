@@ -13,6 +13,9 @@ const newArtical = {
   mutations: {
     setNewArticalId (state, playload) {
       state.newArticalId = playload
+    },
+    clearNewArtical (state) {
+      state.newArticalId = ''
     }
   },
   actions: {

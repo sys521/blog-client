@@ -14,8 +14,7 @@ export default {
   data () {
     return {
       menu: [
-        { icon: 'el-icon-document', text: '基本设置' },
-        { icon: 'el-icon-edit', text: '安全设置' }
+        { icon: 'el-icon-document', text: '基本设置' }
       ]
     }
   },

@@ -1,8 +1,8 @@
 <template>
   <div id="basic-setting">
-    <el-form label-position="right" label-width="80px" v-model="userInfo">
+    <el-form label-position="right" label-width="80px">
       <el-form-item label="用户昵称">
-        <el-input v-model="userInfo.user_displayName"></el-input>
+        <el-input v-model="displayName"></el-input>
       </el-form-item>
       <el-form-item label="用户头像">
         <Upload></Upload>
@@ -26,9 +26,9 @@ export default {
     }
   },
   computed: {
-    userInfo: {
+    displayName: {
       get () {
-        return Object.assign({}, this.$store.getters.getUserBasic)
+        return this.$store.getters.getMyDetail.user_displayName
       },
       set (value) {
         console.log(value)
@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     handle () {
-      let displayName = this.userInfo.user_displayName
+      let displayName = this.displayName
       if (!displayName) {
         this.$message({
           type: 'error',

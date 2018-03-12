@@ -1,18 +1,20 @@
 <template>
   <div id ="my-basic">
-    <div class="basic-layout">
-      <div class="header-img-layout">
-        <li class="header-img" :style="{backgroundImage:`url(${imgUrl})`}"></li>
+    <el-card>
+      <div class="basic-layout">
+          <div class="header-img-layout">
+            <li class="header-img" :style="{backgroundImage:`url(${imgUrl})`}"></li>
+          </div>
+          <div class="basic">
+            <h2 class="displayname">{{displayName}}</h2>
+            <div class="author-info">
+              <li @click="goConcern" v-if="+$router.currentRoute.params.id === this.$store.getters.getMyDetail.user_id">关注:<span>{{$store.getters.getAuthorInfo.concernNum}}</span></li>
+              <li>喜欢:<span>{{$store.getters.getAuthorInfo.loveNum}}</span></li>
+              <li>文章数量:<span>{{$store.getters.getAuthorInfo.articalNum}}</span></li>
+            </div>
+          </div>
       </div>
-      <div class="basic">
-        <h2 class="displayname">{{displayName}}</h2>
-        <div class="author-info">
-          <li @click="goConcern">关注:<span>{{$store.getters.getAuthorInfo.concernNum}}</span></li>
-          <li>喜欢:<span>{{$store.getters.getAuthorInfo.loveNum}}</span></li>
-          <li>文章数量:<span>{{$store.getters.getAuthorInfo.articalNum}}</span></li>
-        </div>
-      </div>
-    </div>
+    </el-card>
   </div>
 </template>
 
@@ -28,7 +30,7 @@ export default {
   },
   computed: {
     imgUrl () {
-      let url = this.$store.getters.getUserBasic.user_header
+      let url = this.$store.getters.getAuthorInfo.userInfo.user_header
       console.log(url)
       if (url) {
         return this.$host + '/header-imgs/' + url
@@ -37,7 +39,7 @@ export default {
       }
     },
     displayName () {
-      let name = this.$store.getters.getUserBasic.user_displayName
+      let name = this.$store.getters.getAuthorInfo.userInfo.user_displayName
       if (name) {
         return name
       } else {
@@ -59,6 +61,11 @@ export default {
   },
   mounted () {
     this.getAuthorInfo()
+  },
+  watch: {
+    '$route' (to, from) {
+      this.getAuthorInfo()
+    }
   }
 }
 </script>
@@ -69,7 +76,6 @@ export default {
     display:flex;
     align-items: center;
     padding-bottom:24px;
-    border-bottom:2px solid #ccc;
     .header-img-layout {
       .header-img {
         width: 100px;

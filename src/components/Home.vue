@@ -14,10 +14,11 @@ export default {
     Header
   },
   mounted () {
-    let api = this.$host + '/user/info'
-    this.$store.dispatch('getUserBasic', api).then(res => {
+    let api = this.$host + '/user/mydetail'
+    this.$store.dispatch('getMyDetail', api).then(res => {
       if (res === 'success') {
         console.log('成功')
+        this.$router.push(`/home/myartical/${this.$store.getters.getMyDetail.user_id}`)
       } else {
         console.log('获取数据失败')
       }

@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     imgUrl () {
-      let url = this.$store.getters.getUserBasic.user_header
+      let url = this.$store.getters.getMyDetail.user_header
       console.log(url)
       if (url) {
         return this.$host + '/header-imgs/' + url

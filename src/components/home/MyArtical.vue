@@ -4,8 +4,9 @@
       <el-col :xs="2" :sm="2" :md="4" :lg="7" :xl="7"><div class="none"></div></el-col>
       <el-col :xs="20" :sm="20" :md="16" :lg="10" :xl="10">
         <MyBasic />
-        <ArticalList />
+        <ArticalList style="margin-top:20px"/>
       </el-col>
+      <el-col :xs="2" :sm="2" :md="4" :lg="7" :xl="7"></el-col>
     </el-row>
   </div>
 </template>
@@ -24,7 +25,7 @@ export default {
 <style lang="scss" scoped>
 #my-artical {
   .none {
-    border:0.1px solid;
+    height:1px;
   }
 }
 </style>

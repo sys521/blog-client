@@ -13,6 +13,15 @@ let concern = {
     setRecomendList (state, playload) {
       console.log(playload)
       state.recomendList = playload
+    },
+    changeRecomendList (state, index) {
+      var b = state.recomendList.splice(index, 1)
+      let length = state.recomendList.length
+      state.alreadyList.splice(length, 0, b)
+    },
+    clearConcern (state) {
+      state.alreadyList = []
+      state.recomendList = []
     }
   },
   getters: {

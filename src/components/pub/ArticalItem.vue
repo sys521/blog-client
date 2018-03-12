@@ -1,16 +1,16 @@
 <template>
   <div id="artical-item">
     <div class="item-layout">
-      <h2 class="title">{{name}}</h2>
-      <p class="abstract">{{abstract}}</p>
+      <ul class ="item-content" @click="readit">
+        <h2 class="title">{{name}}</h2>
+        <p class="abstract">{{abstract}}</p>
+      </ul>
       <div class="count">
         <span class="love">阅读量 ({{click}})</span>
         <span class="click">获得({{love}})个喜欢</span>
       </div>
-      <ul class="button-layout">
+      <ul class="button-layout" v-if="buttonShow">
         <el-button type="text" @click="tabRouter()">编辑</el-button>
-        <el-button type="text" v-if="!status">发布</el-button>
-        <el-button type="text" v-if="status">转为私密</el-button>
         <el-button type="text" @click="dialogVisible = true">删除</el-button>
       </ul>
     </div>
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  props: ['name', 'abstract', 'click', 'love', 'status', 'id'],
+  props: ['name', 'abstract', 'click', 'love', 'status', 'id','buttonShow', 'userId'],
   data () {
     return {
       dialogVisible: false
@@ -41,6 +41,24 @@ export default {
     },
     removeArtical() {
       this.$emit('removeArtical', this.id)
+    },
+    readit () {
+      if (this.$store.getters.getMyDetail.user_id === +this.$store.getters.getAuthorInfo.userInfo.user_id) {
+        this.$router.push(`/home/editor/${this.id}`)
+      } else {
+        let api = this.$host + `/artical/read/${this.id}`
+        this.$axios.get(api).then(res => {
+          if (res.data.status === 'success') {
+            this.$router.push(`/home/editor/${this.id}`)
+            return null
+          } else {
+            this.$message({
+              type: 'error',
+              message: '阅读量增加失败'
+            })
+          }
+        })
+      }
     }
   }
 }
@@ -51,9 +69,13 @@ export default {
   .item-layout {
     border-bottom:1px solid #ccc;
     border-radius:5px;
-    margin:40px 0;
     padding:10px;
     position: relative;
+    .item-content {
+      width:80%;
+      cursor:pointer;
+
+    }
   }
   .count {
     span {

@@ -1,9 +1,9 @@
 <template>
   <div id = "a-concern">
     <h2>我关注的</h2>
-    <div class="concern-list">
-      <List :list="alreadyList"/>
-    </div>    
+    <el-card class="concern-list">
+      <List :list="alreadyList" :concern="true"/>
+    </el-card>    
   </div>
 </template>
 

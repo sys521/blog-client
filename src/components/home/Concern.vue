@@ -3,10 +3,11 @@
   <div id ="concern">
     <el-row >
       <el-col :xs="2" :sm="2" :md="4" :lg="7" :xl="7"><div class="none"></div></el-col>
-      <el-col :xs="20" :sm="20" :md="16" :lg="10" :xl="10">
-        <AlreadyConcern :alreadyList="alreadyList"/>
+      <el-col :xs="16" :sm="20" :md="16" :lg="10" :xl="10">
+        <AlreadyConcern :alreadyList="alreadyList" />
         <RecomendConcern :recomendList="recomendList"/>
       </el-col>
+      <el-col :xs="2" :sm="4" :md="4" :lg="7" :xl="7"></el-col>
     </el-row>
   </div>
 </template>
@@ -64,13 +65,6 @@ export default {
         })
       })
     }
-    // test () {
-    //   let api = this.$host + '/concern/add'
-    //   let to_id = 2
-    //   this.$axios.post(api,{to_id}).then(res => {
-    //     console.log(res)
-    //   })
-    // }
   },
   created () {
     this.getAlreadyConcern()
@@ -82,7 +76,7 @@ export default {
 <style lang="scss" scoped>
 #concern {
   .none {
-    border:0.1px solid;
+    height:1px;
   }
 }
 </style>

@@ -3,11 +3,14 @@
       <mavon-editor
         ref="md"
         style="height: 100%"
+        :defaultOpen="defaultOpen"
         @change="change"
         :value="oldValue"
         @imgAdd="$imgAdd"
         @imgDel="$imgDel"
-        @save="save">
+        @save="save"
+        :toolbars="toolbars"
+        :editable="editable">
       </mavon-editor>
     </div>
   </template>
@@ -17,7 +20,7 @@ import { mavonEditor } from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 export default {
   name: 'editor',
-  props: ['oldValue', 'articalId',],
+  props: ['oldValue', 'articalId', 'editable', 'toolbarsFlag', 'defaultOpen'],
   components: {
     mavonEditor
     // or 'mavon-editor': mavonEditor
@@ -28,9 +31,13 @@ export default {
       html: '',
       clock: false,
       img_file: {},
-      toolbars: {},
-      config: {
-        bold: true, // 粗体
+      toolbars: {}
+    }
+  },
+  created () {
+    if (this.editable) {
+      this.toolbars = {
+       bold: true, // 粗体
         italic: true, // 斜体
         header: true, // 标题
         underline: true, // 下划线
@@ -62,6 +69,13 @@ export default {
         alignright: true, // 右对齐
         /* 2.2.1 */
         subfield: true, // 单双栏模式
+        preview: true, // 预览 
+      }
+    } else {
+      this.toolbars = {
+        subfield: true,
+        readmodel: true, // 沉浸式阅读
+        navigation: true, // 导航目录
         preview: true, // 预览
       }
     }

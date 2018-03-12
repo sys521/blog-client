@@ -1,15 +1,19 @@
 <template>
   <div id ="artical-list">
-    <ul v-for="item in articalList" :key ="item.artical_id">
-      <ArticalItem 
-      :name="item.artical_name" 
-      :abstract="item.artical_abstract" 
-      :click="item.artical_clicktimes"
-      :love="item.love || 0"
-      :id ="item.artical_id"
-      :status="item.artical_status"
-      @removeArtical ="removeArtical"/>
-    </ul>
+    <el-card>
+      <ul v-for="item in articalList" :key ="item.artical_id">
+        <ArticalItem 
+        :name="item.artical_name" 
+        :abstract="item.artical_abstract" 
+        :click="item.artical_clicktimes"
+        :love="item.love || 0"
+        :id ="item.artical_id"
+        :userId="item.user_id"
+        :status="item.artical_status"
+        :buttonShow = "buttonShow"
+        @removeArtical ="removeArtical"/>
+      </ul>
+    </el-card>
   </div>
 </template>
 
@@ -21,7 +25,8 @@ export default {
   },
   data () {
     return {
-      articalList: []
+      articalList: [],
+      buttonShow: false
     }
   },
   methods: {
@@ -56,10 +61,27 @@ export default {
           })
         }
       })
+    },
+    changeButtonShow() {
+      let user_id = this.$store.getters.getMyDetail.user_id
+      let author_id = +this.$router.currentRoute.params.id
+      if (user_id === author_id){
+        this.buttonShow = true
+      } else {
+        this.buttonShow = false
+      }
     }
+  },
+  created () {
+    this.changeButtonShow()
   },
   mounted () {
     this.getArticalList()
+  },
+  watch: {
+    '$route' (to, from) {
+      this.changeButtonShow()
+    }
   }
 }
 </script>
